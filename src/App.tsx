@@ -1,25 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Login from './Components/auth/login';
+import DefaultLayout from './Components/containers/default';
+import CreateAd from './Components/CreatingAd';
+import Home from './Components/home';
+import Profile from './Components/ProfilePage';
+import SavedAd from './Components/SavedAd';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+    <Route path='/' element={<DefaultLayout/>}>
+      <Route index element={<Home/>}/>
+      <Route path='login' element={<Login/>}/>
+      <Route path='profile' element={<Profile/>}/>
+      <Route path='savedAd' element={<SavedAd/>}/>
+      <Route path='createAd' element={<CreateAd/>}/>
+    </Route>
+   </Routes>
   );
 }
 
