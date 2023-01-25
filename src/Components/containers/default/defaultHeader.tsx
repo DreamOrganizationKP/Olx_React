@@ -31,7 +31,7 @@ const DefaultHeader = () => {
                 <Link className="nav-link nav-link-custom active dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" to=""><FontAwesomeIcon className="faUser" icon={faUser} />Profile</Link>
 
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
+                  <li><Link className="dropdown-item" to="/login">Profile</Link></li>
                   <li><a className="dropdown-item" href="#">Another action</a></li>
                   <li><a className="dropdown-item" href="#">Something else here</a></li>
                 </ul>
