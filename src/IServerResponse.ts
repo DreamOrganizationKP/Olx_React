@@ -1,4 +1,4 @@
 export interface ISimpleServerResponse{
     payload:[],
-    isSuccess:true
+    isSuccess:boolean
 }

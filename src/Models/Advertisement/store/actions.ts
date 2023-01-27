@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import http from "../../../http_common";
-import { ISimpleServerResponse } from "../../IServerResponse";
+import { ISimpleServerResponse } from "../../../IServerResponse";
 import { IAdvertisement } from "../interfaces/IAdvertisement";
 import { IAdvertisementResponse } from "../interfaces/IAdvertisementResponse";
 import { AdvertisementActions, AdvertisementActionTypes } from "./types";

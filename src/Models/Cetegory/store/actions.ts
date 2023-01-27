@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import http from "../../../http_common";
-import { ISimpleServerResponse } from "../../IServerResponse";
+import { ISimpleServerResponse } from "../../../IServerResponse";
 import { ICategory } from "../interfaces/ICategory";
 import { CategoryActions, CategoryActionTypes } from "./types";
 
