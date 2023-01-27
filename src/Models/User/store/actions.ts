@@ -10,7 +10,7 @@ export const GetUserList = () => async (dispatch: Dispatch<UserActions>) =>{
 
 try {
     
-    const resp = await http.get<Array<IUser>>("/users");
+    const resp = await http.get<Array<IUser>>("/api/users");
     const { data } = resp;
     console.log(data);
   if(!data){

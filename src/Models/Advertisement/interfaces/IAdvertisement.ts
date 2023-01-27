@@ -4,5 +4,5 @@ export interface IAdvertisement{
     detail: string,
     created_at: Date;
     price: number;
-    kategory:string;
+    category:string;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 const initialFormDataLogin = Object.freeze({
@@ -40,23 +40,33 @@ const LoginPage = () => {
       };
 
     let [authMode, setAuthMode] = useState("signin");
-    const [token, setToken] = useState();
-    const [isSubmitted, setIsSubmitted] = useState(false);
-
     const changeAuthMode = () => {
         setAuthMode(authMode === "signin" ? "signup" : "signin")
     }
-
-
     const handleSubmitLogin = (event: any) => {
         event.preventDefault();
         console.log(formDataLogin);
     };
-
     const handleSubmitRegister = (event: any) => {
         event.preventDefault();
         console.log(formDataRegister);
     };
+
+    const handleSuccessGoogle = (resp: any) => {
+        console.log("Resp google", resp);
+        const {credential} = resp;
+        console.log("Google token", credential);
+    }
+
+    useEffect(() => {
+        const clientId="17761511781-e38853miclpejbb61bhm76085f7oe1o2.apps.googleusercontent.com";
+        window.google.accounts!.id.initialize({
+          client_id: clientId,
+          callback:handleSuccessGoogle 
+        });
+        window.google.accounts!.id.renderButton(document.getElementById("googleBtn"),
+          {theme: "outline", size: "Large"} );
+      }, []);
 
     if (authMode == "signin") {
         return (
@@ -69,6 +79,7 @@ const LoginPage = () => {
                             <span className="link-primary" onClick={changeAuthMode}>
                                 Sign Up
                             </span>
+                            <div id="googleBtn"></div>
                         </div>
                         <div className="form-group mt-3">
                             <label>Email address</label>
@@ -117,6 +128,7 @@ const LoginPage = () => {
                         <span className="link-primary" onClick={changeAuthMode}>
                             Sign In
                         </span>
+                        <div id="googleBtn"></div>
                     </div>
                     <div className="form-group mt-3">
                         <label> Name</label>

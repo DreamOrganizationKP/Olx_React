@@ -1,5 +1,6 @@
 import { Dispatch } from "react";
 import http from "../../../http_common";
+import { ISimpleServerResponse } from "../../IServerResponse";
 import { IAdvertisement } from "../interfaces/IAdvertisement";
 import { IAdvertisementResponse } from "../interfaces/IAdvertisementResponse";
 import { AdvertisementActions, AdvertisementActionTypes } from "./types";
@@ -9,8 +10,10 @@ export const GetAdvertisementList = () => async (dispatch: Dispatch<Advertisemen
 
 try {
     
-    const resp = await http.get<Array<IAdvertisement>>("/users");
+    const resp = await http.get<ISimpleServerResponse>("/api/ticket/tickets?categoryId=d6a5920d-0c8b-4f21-ab7c-17b7a91ca846");
     const { data } = resp;
+    console.log("ad data:",data.payload);
+    
       if(!data){
         console.log("Get ads is null");
         return;
@@ -19,7 +22,7 @@ try {
         dispatch({
           type: AdvertisementActionTypes.ADVERTISEMENT_LIST,
           payload: {
-            list: [...data],
+            list: [...data.payload],
             isLoaded: true
           },
         });

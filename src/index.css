@@ -162,3 +162,15 @@ label {
   color: rgb(34, 34, 34);
 }
  
+
+/* category styles */
+
+.category-block{
+  border: solid;
+  padding: 15px;
+  margin-bottom: 40px;
+}
+
+.category-card{
+  width: 155px;
+}

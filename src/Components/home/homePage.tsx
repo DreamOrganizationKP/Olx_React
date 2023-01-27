@@ -51,6 +51,11 @@ interface IError {
                     </div>
                 </div>
                 <div className="row">
+                  <div className="col d-flex justify-content-center">
+                   <h2>Recent Advertisements</h2>
+                  </div>
+                </div>
+                <div className="row">
                     <div className="col">
                     <AdMapper></AdMapper>
                     </div>
