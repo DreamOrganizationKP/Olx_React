@@ -17,7 +17,7 @@ interface IError {
  
  const HomePage = () =>{
     
-    const {isLoaded } = useTypedSelector(
+    const {isLoaded} = useTypedSelector(
         (store) => store.advertisement
       );
       const { GetAdvertisementList,GetUserList} = useActions();

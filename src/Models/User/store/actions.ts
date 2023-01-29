@@ -1,9 +1,32 @@
+import axios from "axios";
 import { Dispatch } from "react";
 import http from "../../../http_common";
+import { ILogin } from "../interfaces/ILogin";
 import { IUser } from "../interfaces/IUser";
 import { IUserResponse } from "../interfaces/IUserResponse";
 import { UserActions, UserActionTypes } from "./types";
 
+
+
+export const Login = (loginData:ILogin) =>async(dispatch:Dispatch<UserActions>)=>{
+try{
+const resp = await  axios({
+  method: 'post',
+  url: "http://localhost:5000/api/user/login",
+  data: {
+    login: loginData.email,
+    password: loginData.password,
+    isRemember: false 
+    // This is the body part
+  }
+});
+
+console.log(resp);
+
+}catch(error){
+
+}
+}
 
 
 export const GetUserList = () => async (dispatch: Dispatch<UserActions>) =>{
