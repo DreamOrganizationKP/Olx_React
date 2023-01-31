@@ -1,17 +1,13 @@
 import { IUserProfile } from "./IUserProfile";
 
-
-export interface ILogin{
+export interface IRegister{
+    name:string,
+    surname:string,
     email:string,
     password:string,
-    isRemember:boolean,
-  }
+ }
 
-  export interface ILoginResponse{
-    isCredentialsValid:string,
+ export interface IRegisterResponse{
     profile:IUserProfile,
     accessToken:string,
   }
-
-
-  

@@ -1,33 +1,41 @@
+import { ILoginResponse } from "../interfaces/ILogin";
+import { IRegisterResponse } from "../interfaces/IRegister";
 import { IUser } from "../interfaces/IUser";
+import { IUserProfile } from "../interfaces/IUserProfile";
+import { IUserResponse } from "../interfaces/IUserResponse";
 import { IUserState } from "../interfaces/IUserState";
 
 export enum UserActionTypes {
-    USER_LIST = "USER_LIST",
-    USER_ADD = "USER_ADD",
-    USER_DELETE = "USER_DELETE",
-    USER_UPDATE = "USER_UPDATE",
-    USER_UPLOAD_LIST = "USER_UPLOAD_LIST",
-}
-
-export interface GetUsersAction {
-    type: UserActionTypes.USER_LIST,
-    payload: IUserState
-}
-
-export interface AddUsersAction {
-    type: UserActionTypes.USER_ADD,
-    payload: IUser
-}
-
-export interface DeleteUsersAction {
-    type: UserActionTypes.USER_DELETE,
-    payload: string
-}
-
-export interface UpdateUsersAction {
-    type: UserActionTypes.USER_UPDATE,
-    payload: IUser
+    USER_GET = "USER_GET",
+    USER_LOGIN = "USER_LOGIN",
+    USER_LOGOUT = "USER_LOGOUT",
+    USER_REGISTER = "USER_REGISTER",
+    USER_LOGIN_BY_GOOGLE = "USER_LOGIN_BY_GGOGLE"
 }
 
 
-export type UserActions = | GetUsersAction | AddUsersAction | DeleteUsersAction | UpdateUsersAction;
+
+export interface LoginUsersAction {
+    type: UserActionTypes.USER_LOGIN,
+    payload: ILoginResponse
+}
+
+
+export interface RegisterUsersAction {
+    type: UserActionTypes.USER_REGISTER,
+    payload: IRegisterResponse
+}
+
+export interface LoginUsersByGoogleAction {
+    type: UserActionTypes.USER_LOGIN_BY_GOOGLE,
+    payload: IUserProfile
+}
+
+
+export interface LogoutUsersAction {
+    type: UserActionTypes.USER_LOGOUT,
+    payload: IUserProfile
+}
+
+
+export type UserActions = LoginUsersByGoogleAction  | LoginUsersAction | LogoutUsersAction | RegisterUsersAction ;

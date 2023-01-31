@@ -1,16 +1,19 @@
 import axios from "axios";
 import { Dispatch } from "react";
 import http from "../../../http_common";
-import { ILogin } from "../interfaces/ILogin";
+import { ILogin, ILoginResponse } from "../interfaces/ILogin";
+import { IRegister, IRegisterResponse } from "../interfaces/IRegister";
 import { IUser } from "../interfaces/IUser";
+import { IUserProfile } from "../interfaces/IUserProfile";
 import { IUserResponse } from "../interfaces/IUserResponse";
 import { UserActions, UserActionTypes } from "./types";
 
 
 
 export const Login = (loginData:ILogin) =>async(dispatch:Dispatch<UserActions>)=>{
+ 
 try{
-const resp = await  axios({
+const resp = await  axios<ILoginResponse>({
   method: 'post',
   url: "http://localhost:5000/api/user/login",
   data: {
@@ -20,90 +23,111 @@ const resp = await  axios({
     // This is the body part
   }
 });
+const {data} = resp;
+if(data){
+  console.log("Login response data",data);
+  localStorage.setItem("token",data.accessToken);
+}
 
-console.log(resp);
-
+dispatch({
+  type:UserActionTypes.USER_LOGIN,
+  payload:{
+    ...data,
+  }
+})
 }catch(error){
-
-}
-}
-
-
-export const GetUserList = () => async (dispatch: Dispatch<UserActions>) =>{
-
-try {
-    
-    const resp = await http.get<Array<IUser>>("/api/users");
-    const { data } = resp;
-    console.log(data);
-  if(!data){
-    console.log("user data is null");
-    return;
-  }
-  else{
-    dispatch({
-      type: UserActionTypes.USER_LIST,
-      payload: {
-        list: [...data],
-        isLoaded: true
-      },
-    });
-  }
+console.log("register error: ", error);
    
-    
-} catch (error:any) {
-    console.log("Getting list error: " + error);
+}
 }
 
-}
-
-
-export const RemoveUser =( id:string ) => async (dispatch: Dispatch<UserActions>) => {
-
-    try{
-      http.delete("/api/user/delete/" + id).then(res => {
-        dispatch({
-          type: UserActionTypes.USER_DELETE,
-          payload: id,
-        });
-      });
-    }
-    catch (error: any) {
-        console.log("Removing list error: " + error);
-  }
-    
-  }
-
-  export const UpdateUser = (ad:IUser) => async (dispatch: Dispatch<UserActions>)=>{
-
+export const handleSuccessGoogle = (resp: any) => async(dispatch:Dispatch<UserActions>)=> {
+  console.log("Resp google", resp);
+  const {credential} = resp;
+  console.log("Google token", credential);
+  
 try {
-    // to do
-  http.put("/api/user/update..").then(res=>{
-    dispatch({
-        type: UserActionTypes.USER_UPDATE,
-        payload: ad,
-      });
+  const response = await http.post<IUserProfile>("/api/user/googlelogin?token="+credential);
+  localStorage.setItem("token",credential);
+  const { data } = response;
+
+  dispatch({
+    type: UserActionTypes.USER_LOGIN_BY_GOOGLE,
+    payload: {
+      ...data
+    },
+  });
+} catch (error) {
+  console.log("Google error: "+error);
+  
+}
+ 
+}
+
+
+
+export const Register = (RegisterData:IRegister) =>async(dispatch:Dispatch<UserActions>)=>{
+  try{
+  const resp = await  axios<IRegisterResponse>({
+    method: 'post',
+    url: "http://localhost:5000/api/user/register",
+    data: {
+      name: RegisterData.name,
+      surname:RegisterData.surname,
+      email: RegisterData.email,
+      password: RegisterData.password,
+      // This is the body part
+    }
+  });
+  const { data } = resp;
+  if(data){
+    console.log("data payload",data);
+    localStorage.setItem("token",data.accessToken);
+  }
+ 
+  
+  dispatch({
+    type:UserActionTypes.USER_REGISTER,
+    payload:{
+      ...data,
+    }
   })
 
-} catch (error : any) {
-    console.log("Updating list error: " + error);
-}
+  
+  }catch(error){
+  console.log("register error: ", error);
+     
+  }
   }
 
 
-  export const AddUser = (ad:IUser) => async (dispatch: Dispatch<UserActions>)=>{
-
+  export const Logout =()=>async (dispatch:Dispatch<UserActions>) => {
     try {
-        
-      http.post("/api/User/add..").then(res=>{
+      var user = {
+        id:"",
+        name:"",
+        surname:"",
+        email:"",
+        phoneNumber:"",
+        photo:""
+      };
+      var token = localStorage.getItem("token");
+      console.log("given token to remove: ",token);
+      if(token){
+        localStorage.removeItem("token");
         dispatch({
-            type: UserActionTypes.USER_ADD,
-            payload: ad,
-          });
-      })
-    
-    } catch (error : any) {
-        console.log("Adding list error: " + error);
-    }
+          type:UserActionTypes.USER_LOGOUT,
+          payload:{
+            ...user,
+          }
+        })
       }
+    } catch (error) {
+      console.log("logout error: ",);
+    }
+  }
+
+
+
+
 

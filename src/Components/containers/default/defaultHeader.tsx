@@ -1,9 +1,22 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faUser } from "@fortawesome/free-regular-svg-icons";
+import { useActions } from "../../../hook/useActions";
+import { useEffect } from "react";
 
 
 const DefaultHeader = () => {
+
+  const { Logout } = useActions();
+
+ const LogoutCall = () =>{
+   Logout();
+}
+
+  useEffect(()=>{
+   
+  },[])
+    
   return (
     <>
       <nav className="navbar navbar-custom navbar-expand-lg">
@@ -34,9 +47,10 @@ const DefaultHeader = () => {
                   <li><Link className="dropdown-item" to="/login">Profile</Link></li>
                   <li><a className="dropdown-item" href="#">Another action</a></li>
                   <li><a className="dropdown-item" href="#">Something else here</a></li>
+                  <br />
+                  <li><a onClick={LogoutCall} className="dropdown-item" href="#">Logout</a></li>
                 </ul>
               </div>
-
             </li>
             <li>
               <Link className="btn nav-link active" id="btn-ad" to="/createAd">Make Ad</Link>

@@ -1,48 +1,46 @@
 import { faL } from "@fortawesome/free-solid-svg-icons";
+import { traceDeprecation } from "process";
 import { IUserState } from "../interfaces/IUserState";
 import { UserActionTypes } from "./types";
 
 
 const initialState : IUserState = {
-    list:[],
-    isLoaded:false
+    isAuth:false
 };
 
 export const UserReducer = (state=initialState, action: any) : IUserState => {
     switch(action.type) {
-        case UserActionTypes.USER_LIST: {
-            console.log("some message ", action);
-            return {
-                ...state,
-                ...action.payload
-            }
-        }
-        case UserActionTypes.USER_ADD: {
-            return {
-                ...state,
-                list: [...state.list, action.payload.data],
-            }
-        }
-        case UserActionTypes.USER_DELETE: {
-               
-            return {
-                ...state,
-                list: state.list.filter((p) => p.id !== action.payload)
-            }
-        }
-        case UserActionTypes.USER_UPDATE: {
-            // to do
-            return {
-                ...state,
-                list: [...action.payload]
-            }
-        }
-        case UserActionTypes.USER_UPLOAD_LIST:{
+       
+        case UserActionTypes.USER_LOGIN: {
             return{
                 ...state,
-                isLoaded: true
+                user: action.payload,
+                isAuth: true
             }
         }
+        case UserActionTypes.USER_LOGIN_BY_GOOGLE: {
+            return{
+                ...state,
+                isAuth: true
+            }
+        }
+        case UserActionTypes.USER_LOGOUT: {
+            console.log("user logout payload", action.payload);
+            return {
+                ...state,
+                user:action.payload,
+                isAuth:false
+            }
+        }
+        case UserActionTypes.USER_REGISTER: {
+            console.log("user register payload", action.payload);
+            return {
+                ...state,
+                user:action.payload,
+                isAuth:true
+            }
+        }
+       
         default:
             return state;
     }

@@ -1,7 +1,8 @@
 import { IUser } from "./IUser";
+import { IUserProfile } from "./IUserProfile";
 
 
 export interface IUserState{
-    list: Array<IUser>,
-    isLoaded: boolean;
+    user?: IUserProfile,
+    isAuth:boolean,
 }

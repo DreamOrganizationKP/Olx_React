@@ -1,6 +1,9 @@
-import { IUser } from "./IUser";
+import { IUserProfile } from "./IUserProfile";
 
- 
+
  export interface IUserResponse {
-    data: Array<IUser>,
+   isCredentialValid:boolean,
+   profile: IUserProfile,
+   accessToken: string,
   }
+

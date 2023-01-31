@@ -161,6 +161,10 @@ label {
   font-weight: 600;
   color: rgb(34, 34, 34);
 }
+
+.link-primary:hover{
+  cursor: pointer;
+}
  
 
 /* category styles */
@@ -174,3 +178,4 @@ label {
 .category-card{
   width: 155px;
 }
+

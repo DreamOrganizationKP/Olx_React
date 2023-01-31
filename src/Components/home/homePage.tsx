@@ -20,7 +20,7 @@ interface IError {
     const {isLoaded} = useTypedSelector(
         (store) => store.advertisement
       );
-      const { GetAdvertisementList,GetUserList} = useActions();
+      const { GetAdvertisementList} = useActions();
 
     useEffect(() => {
         setTimeout(() => {
