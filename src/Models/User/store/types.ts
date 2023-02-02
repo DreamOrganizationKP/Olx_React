@@ -28,7 +28,7 @@ export interface RegisterUsersAction {
 
 export interface LoginUsersByGoogleAction {
     type: UserActionTypes.USER_LOGIN_BY_GOOGLE,
-    payload: IUserProfile
+    payload: ILoginResponse
 }
 
 

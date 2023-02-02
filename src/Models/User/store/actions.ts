@@ -10,6 +10,10 @@ import { UserActions, UserActionTypes } from "./types";
 
 
 
+export const GetUser = (id:string) =>async(dispatch:Dispatch<UserActions>)=>{
+     // to do
+}
+
 export const Login = (loginData:ILogin) =>async(dispatch:Dispatch<UserActions>)=>{
  
 try{
@@ -47,9 +51,9 @@ export const handleSuccessGoogle = (resp: any) => async(dispatch:Dispatch<UserAc
   console.log("Google token", credential);
   
 try {
-  const response = await http.post<IUserProfile>("/api/user/googlelogin?token="+credential);
-  localStorage.setItem("token",credential);
+  const response = await http.post<ILoginResponse>("/api/user/googlelogin?token="+credential);
   const { data } = response;
+  localStorage.setItem("token", data.accessToken);
 
   dispatch({
     type: UserActionTypes.USER_LOGIN_BY_GOOGLE,
